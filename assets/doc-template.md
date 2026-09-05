@@ -1,12 +1,14 @@
+<!-- Status enum: active | deprecated -->
+
 # [Feature name]
 
 > Spec history: [../specs/<slug>/](../specs/<slug>/)
-> Status: active  <!-- active | deprecated -->
+> Status: active
 > Last updated: [YYYY-MM-DD]
 
 ## What it does
 
-[2–4 sentences for someone who has never seen this feature: what it does and when to reach for it. No implementation details.]
+[2–4 sentences for someone who has never seen this feature: what it does, when to reach for it. No implementation details.]
 
 ## Usage
 
@@ -16,11 +18,11 @@
 [example]
 ```
 
-[One or two more examples only if they show genuinely different usage, e.g. error handling or an advanced option.]
+[More only where they show genuinely different usage — error handling, an advanced option.]
 
 ## Interface
 
-[The public surface: functions/endpoints/commands with signatures, inputs, outputs, and error behavior. Document what callers rely on — skip internals.]
+[The public surface: functions/endpoints/commands. What callers rely on — skip internals.]
 
 ### `[name(params)]`
 
@@ -30,19 +32,15 @@
 
 ## Behavior notes
 
-[Edge cases and limits a user would otherwise learn the hard way — drawn from the spec's edge-case section.]
+[Edge cases and limits a user would otherwise learn the hard way — from the spec's edge cases.]
 
 - [Note]
 
 ## Operating
 
-[Only for a feature that ships behind a switch, carries an operational signal, or calls an external service at runtime — remove this section otherwise. Written for someone who reaches this page under pressure.]
+[Carried where the plan's **Delivery** is not `— ships with the normal release`, the spec carries an operational-signal `R#`/`E#`, or the plan's **Dependencies** line records an external service the feature calls at runtime — removed otherwise.]
 
-- **Switch**: [the flag or config value that controls the feature, where it is set per environment, and the exact way to turn the feature off.]
+- **Switch**: [the flag or config value controlling the feature, where it is set per environment, and the exact way to turn it off.]
 - **Signal**: [what shows the feature working or broken, and where it is read.]
-- **External services**: [each third-party service this feature calls at runtime, the provider API or protocol version this integration targets and where that version is set, and where the provider's status or incidents are read — omit this line when the feature calls none.]
+- **External services**: [each third-party service called at runtime, the provider API or protocol version this integration targets and where it is set, and where the provider's status is read — omit when the feature calls none.]
 - **When it fires**: [what to do first — the check to make, the switch to flip, who to reach.]
-
-## Related
-
-- [Links to adjacent docs, ADRs, or external references — or remove this section.]
