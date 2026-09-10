@@ -1,6 +1,19 @@
 ---
 name: spec-driven
-description: Spec-driven development (SDD) workflow for software features. Guides work through phases — specify, clarify, plan, tasks, implement, document, verify — producing spec.md, plan.md, and tasks.md before code, enforcing clean-code gates, stored-data changes (migration, backfill), delivery (config, flags, rollout, kill switch), dependencies (license, pinning, contracts), scope cuts, and team integration (review, sign-off). Use when the change is worth a written requirement — a reviewer could answer "done or not done?" about it: starting a new feature, resuming or continuing an in-flight feature, a bug fix that changes behavior, porting or rewriting an existing module, a schema migration, backfill, rollback, a staged rollout, integrating an external API, defining performance, accessibility, or observability criteria, cutting scope for a deadline, taking code-review feedback into a spec, a feature handover, or when the user mentions SDD, spec-first, or writing a spec before coding. Also use to audit existing code against an existing spec (Phase 7 → Audit mode). Do not use for: a single dependency add or version bump with no behavior change, a one-file fix, a rename, formatting, or when the user has already said what to build and how.
+description: >-
+  Spec-driven development (SDD) workflow for software features. Guides work through phases — specify,
+  clarify, plan, tasks, implement, document, verify — producing spec.md, plan.md, and tasks.md before
+  code, enforcing clean-code gates, stored-data changes (migration, backfill), delivery (config,
+  flags, rollout, kill switch), dependencies (license, pinning, contracts), scope cuts, and team
+  integration (review, sign-off). Use when the change is worth a written requirement — a reviewer
+  could answer "done or not done?" about it: starting a new feature, resuming or continuing an
+  in-flight feature, a bug fix that changes behavior, porting or rewriting an existing module, a
+  schema migration, backfill, rollback, a staged rollout, integrating an external API, defining
+  performance, accessibility, or observability criteria, cutting scope for a deadline, taking
+  code-review feedback into a spec, a feature handover, or when the user mentions SDD, spec-first, or
+  writing a spec before coding. Also use to audit existing code against an existing spec (Phase 7 →
+  Audit mode). Do not use for: a single dependency add or version bump with no behavior change, a
+  one-file fix, a rename, formatting, or when the user has already said what to build and how.
 license: MIT
 metadata:
   author: Lucke514
