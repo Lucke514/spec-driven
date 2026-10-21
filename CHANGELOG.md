@@ -2,6 +2,14 @@
 
 All notable changes to the `spec-driven` skill.
 
+## 3.2.0 (unreleased)
+
+**Gate baselines move from Plan to the start of Implement**
+
+- Phase 3 discovers the gates and records Gate, Command, and Where, but runs nothing. The approver no longer waits on full gate runs for an approach they may reject.
+- Phase 5's first step measures the Baseline cells, the **Base** SHA, and the **Measurements** values on the untouched tree, before the first code change. Writing them into the plan is a workflow edit and needs no re-approval.
+- A gate that cannot execute now blocks task one instead of the plan's approval. The Trivial rule (run the gates once before changing) is unchanged.
+
 ## 3.1.0
 
 Wave B audit: the red-team pass plus the three scenarios never run before (spec drift, data migration, mid-flight change request). v3.0.0 hardened the evidence half of Phase 7 and left the gate half on assertion; this release evidences the gate half, gives a real data migration a door into Phase 7, and stops the exemplar modelling the exit its own rule forbids.
