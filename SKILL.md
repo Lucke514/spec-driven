@@ -12,7 +12,7 @@ description: >-
 license: MIT
 metadata:
   author: Lucke514
-  version: "3.1.0"
+  version: "3.2.0"
 ---
 
 # Spec-Driven Development

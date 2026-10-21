@@ -2,7 +2,11 @@
 
 All notable changes to the `spec-driven` skill.
 
-## 3.2.0 (unreleased)
+## 3.2.0
+
+Speed release. Reaching an approved plan cost far more than other spec tools, and a review found the cause was context and ceremony, not checks. This release cuts what an agent loads and does before the first proposal, keeps every sign-off item, and makes cost a hard gate in the test harness so later fixes cannot quietly grow it back.
+
+**Budget.** `wc -w SKILL.md references/*.md assets/*.md` goes from 24,939 to 24,459 words, and SKILL.md from 7,072 to 2,848. Words loaded on the default path (`tests/budget.py`, the same mapping applied to 3.1.0): Trivial 8,054 → 3,830, Small to the spec 10,668 → 6,847, Standard to the proposal 14,108 → 9,752. Review stops before code: three → one.
 
 **Gate baselines move from Plan to the start of Implement**
 
@@ -51,6 +55,13 @@ All notable changes to the `spec-driven` skill.
 - Each task's **Verify** now names the evidence for its **Implements** ids (test, measurement command, stand-in, or approved manual check). Phase 7's walk starts from those lines. The validator fails any live `R#`/`E#` that no task with a non-empty **Verify** names.
 - The missing-tooling rule moves to Phase 4: where nothing can produce a requirement's evidence, propose a minimal setup, or record the refusal so the approved manual check applies.
 - A separate claim commit is made only when the work spans branches or agents (a team signal, the overlap scan, or the user says so). Solo on one branch, **Owner** lands in the task's own commit.
+
+**Cost is a hard gate in the test harness**
+
+- `tests/RUBRIC.md` checks a pass/fail **Cost budget** before the 12 dimensions: per depth, the instruction words loaded and the tool calls before the first presented artifact, and the review round-trips before code (Small 1, Standard 1, Large Phase 0 + 1 per capability). A run over budget fails whatever its score.
+- D12 now scores ceremony to value: artifact lines and process commits per line of shipped diff.
+- New `tests/budget.py` (stdlib) sums the words each depth's default path loads and fails over its budget, set about 10% above the 3.2.0 measurement.
+- `tests/README.md`: a fix for a new finding is paid for by deleting text at least as costly on the same depth path; edge cases go in on-demand references, never the core; `budget.py` must pass.
 
 ## 3.1.0
 
