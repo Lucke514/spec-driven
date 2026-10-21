@@ -4,7 +4,7 @@
 
 > Status: draft
 > Owner: [who is accountable for this spec's content]
-> Sign-off: [one row per item this feature raises from core rule 2's table (SKILL.md → Core rules) — that table is the list — each naming the role that approves it, read from the repo. **Every non-empty Sensitive ground item below carries a row here.** `— the session's user holds all of these` is valid and common; an absent signer is `pending sign-off: <role>` on the Status line, which no waiver covers.]
+> Sign-off: [one row per item this feature raises from the table in `references/sign-off.md` (SKILL.md core rule 2) — that table is the list — each naming the role that approves it, read from the repo. **Every non-empty Sensitive ground item below carries a row here.** `— the session's user holds all of these` is valid and common; an absent signer is `pending sign-off: <role>` on the Status line, which no waiver covers.]
 > Tracking: [the team's work item for this feature — id or link — discovered by reading the repo; or `— this project tracks work in the repo only`.]
 > Last updated: [YYYY-MM-DD]
 

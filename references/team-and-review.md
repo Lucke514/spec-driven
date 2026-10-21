@@ -26,11 +26,11 @@ Where Team signals calls for it, read these before filling the spec's header and
 
 Where the repo shows nothing and the answer matters, ask the user; a guess here is a fabricated approval.
 
-**Routing what an owner owns** — ownership of a **path** this change touches goes on the plan's **Integration** line (who approves the change set). Ownership tied to one of core rule 2's gated **items** goes on the spec's **Sign-off** line (who approves the decision), even where no path of that owner is touched. Both, when both are true.
+**Routing what an owner owns** — ownership of a **path** this change touches goes on the plan's **Integration** line (who approves the change set). Ownership tied to one of the gated **items** in [sign-off.md](sign-off.md) goes on the spec's **Sign-off** line (who approves the decision), even where no path of that owner is touched. Both, when both are true.
 
 ## Overlap scan
 
-The bounded enumeration of what else is in flight outside this working tree, used by the slug test, Phases 3, 5 and 7, and Resuming work. On the solo path (Team signals above) it is step 1 only, recorded as `— single branch, no team signals`. Run it once per session and reuse the result — with one exception: Phase 5's per-task claim check exists for freshness. Reuse the branch set there, but re-read the other branches' `tasks.md` (step 3) at each claim, because a claim can land after the scan ran.
+The bounded enumeration of what else is in flight outside this working tree, used by the slug test, Phases 3, 5 and 7, and [lifecycle.md](lifecycle.md) → Resuming work. On the solo path (Team signals above) it is step 1 only, recorded as `— single branch, no team signals`. Run it once per session and reuse the result — with one exception: Phase 5's per-task claim check exists for freshness. Reuse the branch set there, but re-read the other branches' `tasks.md` (step 3) at each claim, because a claim can land after the scan ran.
 
 1. **This tree** — every `specs/*/` in the repo; in a monorepo, each package's `specs/`, not just this one's.
 2. **The other active branches**, bounded and newest first — those holding commits not yet merged here:
@@ -48,7 +48,7 @@ The bounded enumeration of what else is in flight outside this working tree, use
 
 ## Sign-off authority
 
-- [ ] **Owner** is accountable for the spec's content. **Sign-off** carries one line per row of SKILL.md core rule 2's table that this feature actually raises — that table is the list, and this file keeps no second copy of it.
+- [ ] **Owner** is accountable for the spec's content. **Sign-off** carries one line per row of [sign-off.md](sign-off.md)'s table that this feature actually raises — that table is the list, and this file keeps no second copy of it.
 - [ ] Each line names the **role** required, as the repo names it — never a guessed person.
 - [ ] `— the session's user holds all of these` is valid and common: record it explicitly, so the artifact says the authority was checked rather than assumed.
 - [ ] An item whose named signer is not the person in this session is **not** approved by that person's answer: record `pending sign-off: <role>` on the spec's Status line, name the item, and do not start work gated on it.
@@ -74,7 +74,7 @@ Classify every comment before acting on it:
 - [ ] **Plan feedback** — it rejects an approach, a component's placement, a dependency, or a reuse choice: back to Phase 3, amend `plan.md`, re-approve. Not a code edit.
 - [ ] **Implementation feedback** — naming, structure, tests, style, anything the spec does not state: ordinary Phase 5 work; a Decisions entry only where it settles something binding beyond this feature.
 - [ ] A declined comment is still recorded: a Decisions entry saying what was declined and why, with the review identifier.
-- [ ] Feedback arriving after the spec was set **implemented** resets it through the normal amendment path (SKILL.md → Change requests mid-flight).
+- [ ] Feedback arriving after the spec was set **implemented** resets it through the normal amendment path ([lifecycle.md](lifecycle.md) → Change requests mid-flight).
 
 ## Open follow-through
 
