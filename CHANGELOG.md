@@ -24,6 +24,13 @@ All notable changes to the `spec-driven` skill.
 - **Sensitive ground** stays strict at every depth: `Sensitive ground: none touched`, or all five items walked with `R#`/`E#` or an explicit non-goal, each with its Sign-off row.
 - The spec template's Users & scenarios block is shorter. Phase 7's `Coverage:` row copies the spec's lines and adds nothing.
 
+**One proposal review instead of three stops before code**
+
+- Phase 1 drafts the spec. Phase 2 asks the clarification questions (batched, with defaults) as a Q&A turn, not an approval stop, and is skipped when there are no markers. Phases 3–4 then draft the plan and tasks.
+- The agent presents spec + plan + tasks together as one proposal, all three `in-review`, with the magnitude line. One sign-off sets all three `approved`.
+- The user may still ask to review the spec alone before planning (opt-in). Phase 0's split and Phase 7's gap tasks keep their own stops.
+- Unchanged: no artifact is `approved` without having been `in-review`, no approval is asked while markers remain, the waiver rules, the sign-off table, and change requests resetting touched artifacts to `in-review`.
+
 ## 3.1.0
 
 Wave B audit: the red-team pass plus the three scenarios never run before (spec drift, data migration, mid-flight change request). v3.0.0 hardened the evidence half of Phase 7 and left the gate half on assertion; this release evidences the gate half, gives a real data migration a door into Phase 7, and stops the exemplar modelling the exit its own rule forbids.
