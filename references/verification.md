@@ -147,4 +147,6 @@ Waived: G1 — filed on a previous pass; user declined deletion of `legacyExport
 Gaps filed: G2 (R2 edge-case test), G3 (R3 — pending user decision), G4 (junk-code hit), G5 (delete `hashLegacy` + its tests)
 ```
 
+`Coverage:` copies the spec's coverage lines as written and never adds an item the spec omits.
+
 The block lives in the `## Verification reports` section at the end of `tasks.md`, one heading level below it, as the tasks template pins (Small features: at the end of the collapsed `spec.md`'s `## Tasks` section). One block per pass, newest last; never overwrite an earlier pass — including the in-progress one this pass opened. Report the finished block to the user before doing anything about the gaps.

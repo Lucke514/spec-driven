@@ -17,6 +17,13 @@ All notable changes to the `spec-driven` skill.
 - A signal runs only the part it calls for (team file → Discovery, recent branch → full overlap scan). The user saying others work on this triggers both. Core rule 2 sign-off is unchanged.
 - The Small row's partial version is replaced by this rule. The plan template gains an **In flight** line for the overlap result.
 
+**Coverage checklists list only what applies**
+
+- **Operational criteria**: only for features that face users or run in production, and only the items that apply, each with its `R#`/`E#`/`SC#`. An item that does not apply is omitted, not written as a non-goal. `Operational criteria: n/a — <reason>` is valid, and Small no longer requires the line.
+- **Accessibility** and its four sub-items apply only to a UI surface. When they apply, each sub-item still gets its own criterion or non-goal.
+- **Sensitive ground** stays strict at every depth: `Sensitive ground: none touched`, or all five items walked with `R#`/`E#` or an explicit non-goal, each with its Sign-off row.
+- The spec template's Users & scenarios block is shorter. Phase 7's `Coverage:` row copies the spec's lines and adds nothing.
+
 ## 3.1.0
 
 Wave B audit: the red-team pass plus the three scenarios never run before (spec drift, data migration, mid-flight change request). v3.0.0 hardened the evidence half of Phase 7 and left the gate half on assertion; this release evidences the gate half, gives a real data migration a door into Phase 7, and stops the exemplar modelling the exit its own rule forbids.

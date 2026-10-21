@@ -14,14 +14,13 @@
 
 ## Users & scenarios
 
-[Who uses this and in what situation. The three coverage lines below are filled at every depth, Small included: `references/writing-specs.md` → Surfaces / Operational criteria / Sensitive ground.]
+[Who uses this and in what situation. Coverage lines: `references/writing-specs.md` → Surfaces / Operational criteria / Sensitive ground. List only what applies.]
 
 - **[Scenario name]**: As a [user], when [situation], I want [capability] so that [outcome].
-- **Surfaces**: [UI | API or contract | CLI | background job | data pipeline | library — every surface this feature exposes. Each brings its own acceptance criteria into Requirements, or an explicit Non-goal.]
-- **Operational criteria** — one `R#`/`E#`/`SC#` or `non-goal` per item:
-  - Load & volume: [R#] · Text & locale: [R#] · Operational signal: [SC#] · Degradation: [E#] · Partial failure: [E#]
-  - Accessibility: [the standard and level this project already commits to, or `non-goal`] — Keyboard reach: [R#] · Focus behavior: [R#] · Contrast: [R#] · Error announcement: [E#]
-- **Sensitive ground** — when this feature touches authentication or authorization, personal or regulated data, secrets, or money: one `R#`/`E#` or `non-goal` per item, each filled item carrying its **Sign-off** row above:
+- **Surfaces**: [UI | API or contract | CLI | background job | data pipeline | library — each one exposed, with its criteria in Requirements or a Non-goal.]
+- **Operational criteria**: [only the items that apply, each with its `R#`/`E#`/`SC#` — e.g. `Load & volume: R4 · Degradation: E2` — or `n/a — <reason>`. Not required at Small.]
+  - Accessibility (UI surface only): [the standard and level this project commits to, or `non-goal`] — Keyboard reach: [R#] · Focus behavior: [R#] · Contrast: [R#] · Error announcement: [E#]
+- **Sensitive ground**: [`none touched` — or, when it touches auth, personal or regulated data, secrets or money, all five items, each `R#`/`E#` or `non-goal`, each filled item with its **Sign-off** row above:]
   - Access control: [R#] · Traceability: [R#] · Data handling: [E#] · Data lifecycle: [non-goal] · Repeat-request correctness: [R#]
 
 ## Requirements
