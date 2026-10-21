@@ -34,7 +34,7 @@
 
 **Integration**: `[direct commits to the base branch, no review policy found | one review-gated change set | N change sets, in order]` — how this change set reaches the branch named in **Base**, who approves it, and which required checks overlap the `pipeline-only` gates. [`references/team-and-review.md` → Discovery.]
 
-**Task span**: `— a task is claimed for at most 7 days` — [replace only where this project's tasks legitimately run longer: a claim older than the span is stale, not held (SKILL.md → Phase 5).]
+**Task span**: `— a task is claimed for at most 7 days` — [replace only where this project's tasks legitimately run longer: a claim older than the span is stale, not held (`references/implement.md` → Claiming a task).]
 
 **Measurements**: `[command]` → `[value at Phase 5's start, or "new behavior — no current value"]` @ `[conditions: environment, data scale, concurrency, run count]` — one row per requirement stating a number; omit when none does. [Same reference.]
 

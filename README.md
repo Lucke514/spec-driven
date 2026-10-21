@@ -54,7 +54,7 @@ Just ask for a feature and mention the workflow ("let's do this spec-first"), or
 ```
 SKILL.md                     # the workflow and its rules
 assets/                      # templates: spec, plan, tasks, feature docs
-references/                  # deep guidance: writing specs, clean code, verification
+references/                  # loaded on demand: specs, sign-off, implement, verification, lifecycle, …
 scripts/validate.py          # deterministic checks for spec.md / plan.md / tasks.md
 tests/validator/             # validator fixtures; run.sh checks them
 ```

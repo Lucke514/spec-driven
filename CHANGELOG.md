@@ -38,6 +38,13 @@ All notable changes to the `spec-driven` skill.
 - SKILL.md runs it before presenting any artifact. The Phase 3 mapping bullet, the Phase 4 coverage bullet and the id half of Resuming work's Artifact cross-check now just run it; their prose checks are gone. The git-history half of the cross-check is unchanged.
 - `tests/validator/run.sh` runs the script against valid and invalid fixtures and checks the templates still parse.
 
+**SKILL.md slimmed to its core; late phases load on demand**
+
+- SKILL.md drops from ~7,000 to ~2,800 words. It keeps the core rules, Adaptive depth, the Workflow table and Phases 0–4. The frontmatter description is shorter but keeps the trigger and "Do not use for" lists.
+- Phases 5 and 6 move to the new `references/implement.md`. Phase 7's terminal status, the gap-approval waiver carve-out and Audit mode move into `references/verification.md`. Change requests mid-flight and Resuming work move to the new `references/lifecycle.md`.
+- The sign-off table moves to the new `references/sign-off.md`. Core rule 2 still names every item in one line and says a waiver never covers them.
+- Each moved section leaves a stub in SKILL.md with an explicit load trigger. The one-line change-request test stays in SKILL.md. Every rule is kept, rewritten in shorter sentences; cross-references now point to the new files.
+
 ## 3.1.0
 
 Wave B audit: the red-team pass plus the three scenarios never run before (spec drift, data migration, mid-flight change request). v3.0.0 hardened the evidence half of Phase 7 and left the gate half on assertion; this release evidences the gate half, gives a real data migration a door into Phase 7, and stops the exemplar modelling the exit its own rule forbids.
