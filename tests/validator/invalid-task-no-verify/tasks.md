@@ -22,7 +22,7 @@ Anchors: see assets/tasks-template.md. A commented-out line is ignored: ## T9 �
 - [ ] Done
 - **Owner**: lucas, since 2026-10-02
 - **Component**: C2 · **Implements**: R1
-- **Verify**: `npm test toolbar`
+- **Verify**: —
 - **Notes**: —
 
 ## T3 — Document the feature

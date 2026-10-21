@@ -16,7 +16,8 @@ Execute `tasks.md` in order.
 
 - Work one task at a time, and only one nobody else holds. Before starting, confirm its **Owner** is `—` here. Where the work spans branches, confirm it also in the same slug's `tasks.md` on the other active branches ([team-and-review.md](team-and-review.md) → Overlap scan). On the solo path there is nothing more to check.
 - Claim it: set **Owner** to who (or which branch) executes it, plus today's date.
-- **Commit the claim before writing a line of code — one commit, always**, whatever the scan found. The scan cannot see a second session in this same clone. That commit is the only proof the task was held before it was worked.
+- **Team mode: commit the claim before writing code.** This applies when the work spans branches or agents: a team signal fired at Phase 1, the overlap scan found this slug elsewhere, or the user says so. The claim is its own commit, made first. Only that commit shows other sessions the task is held.
+- **Solo, one branch: no separate claim commit.** The **Owner** line lands in the task's own commit.
 - Re-read `tasks.md` before writing to it. Two sessions writing it at once conflict in the one file the workflow trusts.
 - Release the claim (**Owner** back to `—`) on completion or handback.
 - A claim dated more than 7 days ago is stale, not held, unless the plan records a different **Task span**. Ask the user before taking it.

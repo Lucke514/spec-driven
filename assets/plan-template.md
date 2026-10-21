@@ -40,7 +40,7 @@
 
 ## Components
 
-[Each component maps to ≥1 spec `R#`/`E#`; one implementing nothing from the spec is cut. `C#` ids are stable for this plan's lifetime — never renumbered, never reused after deletion; a cut component keeps its number and gets `— cut (Decisions YYYY-MM-DD)`.]
+[Each component maps to ≥1 spec `R#`/`E#`; one implementing nothing from the spec is cut. Coverage is read from these **Implements** lines; `scripts/validate.py` checks it. `C#` ids are stable for this plan's lifetime — never renumbered, never reused after deletion; a cut component keeps its number and gets `— cut (Decisions YYYY-MM-DD)`.]
 
 ### C1 — [Component name]
 
@@ -60,15 +60,6 @@
 1. C1
 2. C2, C3 (parallel)
 3. ...
-
-## Evidence per requirement
-
-[One row per spec `R#` and `E#` — filled in Phase 3, read directly by Phase 7's walk. Resolve a blank cell before presenting the plan (same reference → Evidence per requirement).]
-
-| R#/E# | Evidence (test path / measurement command / stand-in / manual check) | Exists today? |
-|---|---|---|
-| R1 | `test/module_test.py::test_named_case` | no — written by T3 |
-| E1 | `[the stand-in it runs against, per **Dependencies**]` | yes |
 
 ## Data changes, delivery & dependencies
 
@@ -107,13 +98,3 @@
 | Risk | Mitigation |
 |---|---|
 | [What could go wrong] | [How the plan handles it] |
-
-## Requirement coverage
-
-[Sanity check — every spec `R#`/`E#` appears here; Phase 7 checks it for accuracy.]
-
-| Requirement | Covered by |
-|---|---|
-| R1 | C1 |
-| R2 | ... |
-| E1 | C2 |

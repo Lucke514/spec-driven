@@ -4,7 +4,7 @@ Anchors — every resume rule parses this file. Keep these exact shapes.
 - Report blocks are `### Verification report — <slug> — <YYYY-MM-DD> — pass <n>`, strictly one level below `## Verification reports`; `<n>` counts from 1 across the feature's passes.
 - Exactly one `**Notes**` line per task: overwrite the `—` placeholder, never add a second.
 - Box states: `- [ ] Done` open · `- [x] Done` complete · `- [~] Waived — YYYY-MM-DD, why` (declined) · `- [>] Deferred — YYYY-MM-DD, owner <who>` (ships later; closed for this feature's verification, never counted unchecked) · `- [!] Blocked — YYYY-MM-DD, <what the user must do>` (required and in scope, executable only by the user; open, not closed).
-- `**Owner**` names who or which branch is executing the task, since YYYY-MM-DD; `—` means unclaimed. Claimed before code is written, released on completion or handback, stale past the plan's **Task span**. Keep the line bare — no trailing comment for a rule to misread.
+- `**Owner**` names who or which branch is executing the task, since YYYY-MM-DD; `—` means unclaimed. Set when the task starts (a separate claim commit only when the work spans branches or agents: `references/implement.md` → Claiming a task), released on completion or handback, stale past the plan's **Task span**. Keep the line bare — no trailing comment for a rule to misread.
 - `[P]` on a task heading = runs in parallel with the `[P]` tasks it is contiguous with; the first task without `[P]` ends the group.
 - Status enum: draft | in-review | approved | abandoned.
 -->
@@ -25,7 +25,7 @@ Anchors — every resume rule parses this file. Keep these exact shapes.
 - **Files**: [e.g. `src/module.py`, `tests/test_module.py`]
 - **Do**: [Concrete change to make.]
 - **Acceptance**: [Observable result that must hold.]
-- **Verify**: `[command to run, e.g. pytest tests/test_module.py]`
+- **Verify**: `[the evidence for its Implements ids: test, measurement command, stand-in, or approved manual check — e.g. pytest tests/test_module.py]`
 - **Notes**: — [overwrite on completion: what landed, where (the commit(s) carrying it, or `uncommitted, local to <who>`), the Decisions date of any shortcut taken, and `Clean-code: <n> hits — <what> | none · close calls: <each one, and which way it went> | none` — `none` recorded, never left unwritten]
 
 ## T2 [P] — [Task name]

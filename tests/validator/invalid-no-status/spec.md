@@ -40,13 +40,6 @@ Rename "Submit" to "Save" so the label matches what the button does.
 
 **Base**: `main` @ `abc1234`
 
-### Evidence per requirement
-
-| R#/E# | Evidence | Exists today? |
-|---|---|---|
-| R1 | `tests/form.test.tsx::label` | no — written by T1 |
-| E1 | `tests/form.test.tsx::disabled_label` | no — written by T1 |
-
 ## T1 — Relabel the button
 
 - [ ] Done
