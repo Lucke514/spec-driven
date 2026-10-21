@@ -45,6 +45,13 @@ All notable changes to the `spec-driven` skill.
 - The sign-off table moves to the new `references/sign-off.md`. Core rule 2 still names every item in one line and says a waiver never covers them.
 - Each moved section leaves a stub in SKILL.md with an explicit load trigger. The one-line change-request test stays in SKILL.md. Every rule is kept, rewritten in shorter sentences; cross-references now point to the new files.
 
+**Redundant traceability and solo claim commits removed**
+
+- The plan's **Requirement coverage** and **Evidence per requirement** tables are gone. Coverage is read from each component's **Implements**, and `scripts/validate.py` checks it.
+- Each task's **Verify** now names the evidence for its **Implements** ids (test, measurement command, stand-in, or approved manual check). Phase 7's walk starts from those lines. The validator fails any live `R#`/`E#` that no task with a non-empty **Verify** names.
+- The missing-tooling rule moves to Phase 4: where nothing can produce a requirement's evidence, propose a minimal setup, or record the refusal so the approved manual check applies.
+- A separate claim commit is made only when the work spans branches or agents (a team signal, the overlap scan, or the user says so). Solo on one branch, **Owner** lands in the task's own commit.
+
 ## 3.1.0
 
 Wave B audit: the red-team pass plus the three scenarios never run before (spec drift, data migration, mid-flight change request). v3.0.0 hardened the evidence half of Phase 7 and left the gate half on assertion; this release evidences the gate half, gives a real data migration a door into Phase 7, and stops the exemplar modelling the exit its own rule forbids.

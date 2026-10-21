@@ -27,19 +27,3 @@ Add a batch endpoint and a selection toolbar.
 ### C3 — Old export button — cut (Decisions 2026-10-01)
 
 - **Implements**: R3
-
-## Evidence per requirement
-
-| R#/E# | Evidence | Exists today? |
-|---|---|---|
-| R1 | `tests/toolbar.test.tsx::archives_selected` | no — written by T2 |
-| R2 | `bench/archive.py` | no — written by T1 |
-| E1 | `tests/api_test.py::test_reject_keeps_notes` | no — written by T1 |
-
-## Requirement coverage
-
-| Requirement | Covered by |
-|---|---|
-| R1 | C2 |
-| R2 | C1 |
-| E1 | C1 |

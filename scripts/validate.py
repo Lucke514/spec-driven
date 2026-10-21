@@ -13,8 +13,9 @@ Checks:
   - no "[NEEDS CLARIFICATION" marker once Status is not draft
   - R#/E#/SC#/C#/T#/G# ids unique within their file
   - every live R#/E# (not superseded, deferred or an accepted limitation)
-    is named by a component's Implements (Standard) and by a task's Implements
-  - no Implements, Component, coverage or evidence line names an id that does not exist
+    is named by a component's Implements (Standard) and by a task's Implements,
+    and by at least one such task with a non-empty **Verify** (its evidence)
+  - no Implements, Component or coverage line names an id that does not exist
   - every component not cut is covered by a task; every component implements something
   - task anchors: "## T#" / "## G#" headings, exactly one box line in a known
     state, exactly one **Owner** line and one **Notes** line
@@ -182,20 +183,6 @@ def check_refs(part, n, text, known, rep, what):
             rep.error(part.path, n, "%s names %s, which the spec does not define" % (what, ident))
 
 
-def table_rows(part, span):
-    """Data rows of the first Markdown table in a section: (line number, cells)."""
-    rows = []
-    for n, line in part.rows(*span):
-        s = line.strip()
-        if not s.startswith("|"):
-            if rows:
-                break
-            continue
-        cells = [c.strip().strip("`") for c in s.strip("|").split("|")]
-        rows.append((n, cells))
-    return [r for r in rows[1:] if not re.match(r"^:?-+:?$", r[1][0] or "-")]
-
-
 def check_spec(part, small, rep):
     defs = collect(part, RE_DEF_SPEC, rep)
     live = [i for i, (n, line) in defs.items() if RE_REQ.match(i) and not RE_NOT_LIVE.search(line)]
@@ -218,37 +205,6 @@ def check_spec(part, small, rep):
         elif not any(RE_DEF_SPEC.match(l) and l.strip().startswith("- **SC") for _, l in part.rows(*sc)):
             rep.error(part.path, sc[0] + 1, "Success criteria holds no SC# (required at Standard)")
     return defs, live
-
-
-def check_coverage_table(part, span, spec_ids, live, rep, name, components=None):
-    rows = table_rows(part, span)
-    seen = set()
-    for n, cells in rows:
-        ident = cells[0]
-        if not RE_SPEC_REF.fullmatch(ident or ""):
-            continue
-        seen.add(ident)
-        if ident not in spec_ids:
-            rep.error(part.path, n, "%s row names %s, which the spec does not define" % (name, ident))
-        rest = " ".join(cells[1:])
-        if len(cells) < 2 or any(not c for c in cells[1:]):
-            rep.error(part.path, n, "%s row for %s has an empty cell" % (name, ident))
-        if components is not None:
-            for c in RE_C_REF.findall(rest):
-                if c not in components:
-                    rep.error(part.path, n, "%s row names %s, which the plan does not define" % (name, c))
-    for ident in live:
-        if ident not in seen:
-            rep.error(part.path, span[0] + 1, "%s has no row for %s" % (name, ident))
-
-
-def check_evidence(part, spec_ids, live, rep):
-    head = next((n - 1 for n, l in part.rows() if re.match(r"^#{2,3}\s+Evidence per requirement", l)), None)
-    span = None if head is None else (head, part.end)
-    if span:
-        check_coverage_table(part, span, spec_ids, live, rep, "Evidence per requirement")
-    else:
-        rep.warning(part.path, part.start + 1, "no '## Evidence per requirement' table")
 
 
 def check_plan(part, spec_ids, live, rep):
@@ -277,12 +233,6 @@ def check_plan(part, spec_ids, live, rep):
     for ident in live:
         if ident not in implemented:
             rep.error(part.path, part.start + 1, "%s is not named by any component's Implements" % ident)
-    span = part.section("Requirement coverage")
-    if span:
-        check_coverage_table(part, span, spec_ids, live, rep, "Requirement coverage", comps)
-    else:
-        rep.error(part.path, part.start + 1, "no '## Requirement coverage' table")
-    check_evidence(part, spec_ids, live, rep)
     return comps, active
 
 
@@ -292,12 +242,12 @@ def check_tasks(part, spec_ids, live, comps, active, rep):
         if m and len(m.group(1)) != 2:
             rep.error(part.path, n, "task heading %s must be level '##', not '%s'" % (m.group(2), m.group(1)))
     collect(part, re.compile(r"^##\s+([TG]\d+)\b"), rep)
-    named, covered = set(), set()
+    named, verified, covered = set(), set(), set()
     for title, s, e in part.sections():
         m = re.match(r"([TG]\d+)\b", title)
         if not m:
             continue
-        tid, boxes, owners, notes = m.group(1), [], 0, 0
+        tid, boxes, owners, notes, ids, verify = m.group(1), [], 0, 0, [], False
         for n, line in part.rows(s + 1, e):
             if RE_TASK_HEAD.match(line):
                 break
@@ -308,13 +258,19 @@ def check_tasks(part, spec_ids, live, comps, active, rep):
             im = RE_IMPLEMENTS.search(line)
             if im:
                 check_refs(part, n, im.group(1), spec_ids, rep, "%s Implements" % tid)
-                named.update(RE_SPEC_REF.findall(im.group(1)))
+                ids += RE_SPEC_REF.findall(im.group(1))
+            vm = re.match(r"^\s*-\s+\*\*Verify\*\*:\s*(.*)$", line)
+            if vm and vm.group(1).strip(" `—-"):
+                verify = True
             cm = RE_COMPONENT.search(line)
             if cm and comps is not None:
                 for c in RE_C_REF.findall(cm.group(1)):
                     covered.add(c)
                     if c not in comps:
                         rep.error(part.path, n, "%s Component names %s, which the plan does not define" % (tid, c))
+        named.update(ids)
+        if verify:
+            verified.update(ids)
         if len(boxes) != 1:
             rep.error(part.path, s + 1, "%s has %d box lines; exactly one is required" % (tid, len(boxes)))
         for n, line in boxes:
@@ -327,6 +283,9 @@ def check_tasks(part, spec_ids, live, comps, active, rep):
     for ident in live:
         if ident not in named:
             rep.error(part.path, part.start + 1, "%s is not named by any task's Implements" % ident)
+        elif ident not in verified:
+            rep.error(part.path, part.start + 1,
+                      "%s has no evidence: no task naming it has a non-empty **Verify**" % ident)
     for c in sorted(active):
         if c not in covered:
             rep.error(part.path, part.start + 1, "component %s is not covered by any task" % c)
@@ -349,7 +308,6 @@ def validate(target, rep):
     spec_ids, live = check_spec(spec, small, rep)
     if small:
         tasks = Part(spec_path, lines, split)
-        check_evidence(tasks, spec_ids, live, rep)
         check_tasks(tasks, spec_ids, live, None, set(), rep)
         return True
     plan_path, tasks_path = os.path.join(folder, "plan.md"), os.path.join(folder, "tasks.md")

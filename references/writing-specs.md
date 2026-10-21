@@ -24,7 +24,7 @@ Phase 1's first three acts, in this order:
 
 Every requirement must let a reviewer answer **"done or not done?"** with a plain yes/no. If judging it needs taste, context, or a meeting, it is not a requirement yet.
 
-The rule reaches the **headline**, not just the criteria under it: an `R#` whose headline carries a quality word — fast, smooth, clean, usable, robust, janky — is not yet an `R#`, because that headline is the string Phase 7, the coverage table, and every `**Implements**` line propagate. Name the subject, the verb, and the observable object; the number belongs in the criterion beneath it.
+The rule reaches the **headline**, not just the criteria under it: an `R#` whose headline carries a quality word — fast, smooth, clean, usable, robust, janky — is not yet an `R#`, because that headline is the string Phase 7, the tasks, and every `**Implements**` line propagate. Name the subject, the verb, and the observable object; the number belongs in the criterion beneath it.
 
 Rewrite vague qualities as observable behavior:
 
