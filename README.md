@@ -23,6 +23,8 @@ Two things ship with every feature, enforced as pass/fail gates:
 - **Clean code** — no dead code, debug leftovers, commented-out blocks, duplication, or magic values survive a task; the project's lint/format/type/test commands are recorded in the plan and must show no new failures against their recorded baseline before any task is marked done.
 - **Documentation in the repo** — a `docs/<feature>.md` page plus README/CHANGELOG updates, verified against actual behavior like any other requirement.
 
+The structural checks are a script, not prose the agent re-reads: `scripts/validate.py` (Python 3.8+, no dependencies) checks a feature's artifacts before every presentation — header and Status, leftover `[NEEDS CLARIFICATION]` markers, unique ids, and that every requirement maps to a component and a task. Run it yourself with `python3 scripts/validate.py specs/<slug>`; it prints `file:line: error|warning: message` and exits 1 on any error.
+
 Depth adapts to the work — trivial changes skip SDD entirely; small features collapse to a single file; large requests are split into one spec per capability.
 
 ## Install
@@ -53,6 +55,8 @@ Just ask for a feature and mention the workflow ("let's do this spec-first"), or
 SKILL.md                     # the workflow and its rules
 assets/                      # templates: spec, plan, tasks, feature docs
 references/                  # deep guidance: writing specs, clean code, verification
+scripts/validate.py          # deterministic checks for spec.md / plan.md / tasks.md
+tests/validator/             # validator fixtures; run.sh checks them
 ```
 
 ## Changelog

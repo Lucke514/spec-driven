@@ -31,6 +31,13 @@ All notable changes to the `spec-driven` skill.
 - The user may still ask to review the spec alone before planning (opt-in). Phase 0's split and Phase 7's gap tasks keep their own stops.
 - Unchanged: no artifact is `approved` without having been `in-review`, no approval is asked while markers remain, the waiver rules, the sign-off table, and change requests resetting touched artifacts to `in-review`.
 
+**A deterministic validator replaces the prose id checks**
+
+- New `scripts/validate.py` (Python 3.8+, stdlib only): `python3 scripts/validate.py specs/<slug>`, or the path of a collapsed Small `spec.md`. It prints `file:line: error|warning: message` and exits 1 on any error.
+- It checks the header (Status enum, `Last updated` date), markers left after `draft`, unique `R#`/`E#`/`SC#`/`C#`/`T#`/`G#` ids, that every live `R#`/`E#` reaches a component and a task, that no line names a missing id, that every component has a task, the task anchors, Success criteria at Standard and the Minimum shippable line.
+- SKILL.md runs it before presenting any artifact. The Phase 3 mapping bullet, the Phase 4 coverage bullet and the id half of Resuming work's Artifact cross-check now just run it; their prose checks are gone. The git-history half of the cross-check is unchanged.
+- `tests/validator/run.sh` runs the script against valid and invalid fixtures and checks the templates still parse.
+
 ## 3.1.0
 
 Wave B audit: the red-team pass plus the three scenarios never run before (spec drift, data migration, mid-flight change request). v3.0.0 hardened the evidence half of Phase 7 and left the gate half on assertion; this release evidences the gate half, gives a real data migration a door into Phase 7, and stops the exemplar modelling the exit its own rule forbids.
