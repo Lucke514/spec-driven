@@ -6,7 +6,7 @@ Detailed guidance for Phase 1 (Specify), plus the depth rules SKILL.md's Adaptiv
 
 The classification table and the three imperative lines are in SKILL.md → Adaptive depth. This section holds what happens when the classification turns out to be wrong.
 
-**Re-classification — the scope grew.** If work at any depth reveals a larger scope than classified, stop and re-classify: enter the workflow at Phase 1 and treat the diff written so far as input to the spec, not approved work — propose keeping or reverting it when the spec is approved. Whatever is kept is this feature's work, so Phase 3's gate baselines are still measured with that diff removed.
+**Re-classification — the scope grew.** If work at any depth reveals a larger scope than classified, stop and re-classify: enter the workflow at Phase 1 and treat the diff written so far as input to the spec, not approved work — propose keeping or reverting it when the spec is approved. Whatever is kept is this feature's work, so the gate baselines (Phase 5's start) are still measured with that diff removed.
 
 **Cost overrun — the scope did not grow, the work outgrew its size.** This is a different signal with a different response: do not re-classify, and never add a heavier depth's ceremony to a feature already in flight. Read it from the artifacts, never from a clock this session cannot observe — a completion note recording a second or third resume of the same task, more dated **Owner** claims than completed tasks, or the user saying the work has run longer than its depth promised. Then stop and report what is done, what remains, and that the depth's stated size no longer holds; let the user choose to cut scope (Phase 7's **deferred** verdict), continue, or re-scope.
 

@@ -19,7 +19,7 @@
 
 ## Quality gates
 
-[Discovered from the project's tooling in Phase 3; every task passes all of them. Fill every cell — baselines as observed output or counts, `Where`, a gate with no tooling, the read-only command form — per `references/verification.md` → Recording gates.]
+[Gate, Command, Where: discovered in Phase 3; every task passes all of them. Baseline: observed output or counts, filled at Phase 5's start. Fill every cell — `Where`, a gate with no tooling, the read-only command form — per `references/verification.md` → Recording gates.]
 
 | Gate | Command | Where | Baseline |
 |---|---|---|---|
@@ -29,13 +29,13 @@
 | Types | `[e.g. go build ./..., mypy]` | `here` | `[e.g. 0 errors in 218 files; or: 41 pre-existing]` |
 | [Other] | `[e.g. accessibility scan, dependency audit, size budget — one row per additional check the project runs]` | `[here / pipeline-only]` | `[e.g. 3 pre-existing violations; or: 0 findings]` |
 
-**Base**: `[base branch]` @ `[SHA]` — the branch this feature starts from and the commit the baselines were measured on; a branch that still resolves later (`main`, `release/2.4`), never a bare SHA or `HEAD`. [Same reference.]
+**Base**: `[base branch]` @ `[SHA at Phase 5's start]` — the branch this feature starts from (one that still resolves later, never a bare SHA or `HEAD`) and the commit the baselines were measured on. [Same reference.]
 
 **Integration**: `[direct commits to the base branch, no review policy found | one review-gated change set | N change sets, in order]` — how this change set reaches the branch named in **Base**, who approves it, and which required checks overlap the `pipeline-only` gates. [`references/team-and-review.md` → Discovery.]
 
 **Task span**: `— a task is claimed for at most 7 days` — [replace only where this project's tasks legitimately run longer: a claim older than the span is stale, not held (SKILL.md → Phase 5).]
 
-**Measurements**: `[command]` → `[value on the untouched tree, or "new behavior — no current value"]` @ `[conditions: environment, data scale, concurrency, run count]` — one row per requirement stating a number; omit when none does. [Same reference.]
+**Measurements**: `[command]` → `[value at Phase 5's start, or "new behavior — no current value"]` @ `[conditions: environment, data scale, concurrency, run count]` — one row per requirement stating a number; omit when none does. [Same reference.]
 
 ## Components
 
