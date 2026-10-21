@@ -16,7 +16,7 @@ The planning phases produce artifacts under `specs/<feature-slug>/` in your proj
 | `plan.md` | How — components (C#) mapped to requirements, build order, risks |
 | `tasks.md` | Single-session tasks (T#) with acceptance criteria and a verify command |
 
-The agent stops for your review after each planning artifact (spec, plan, tasks) and before implementing any gaps verification finds, and requirements, edge cases, components, and tasks are cross-referenced by ID so the final verification pass is mechanical: every requirement and edge case gets a verdict (met / partially met / not met / spec drift / superseded / deferred).
+The agent asks its clarifying questions, then stops once for your review of the whole proposal (spec, plan, tasks together) and again before implementing any gaps verification finds, and requirements, edge cases, components, and tasks are cross-referenced by ID so the final verification pass is mechanical: every requirement and edge case gets a verdict (met / partially met / not met / spec drift / superseded / deferred).
 
 Two things ship with every feature, enforced as pass/fail gates:
 

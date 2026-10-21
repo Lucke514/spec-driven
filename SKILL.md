@@ -27,11 +27,11 @@ Write the spec before the code. The spec — not the conversation — is the sou
 ## Core rules
 
 1. **No implementation before an approved spec.** If the user asks to build something non-trivial and no spec exists, start at Phase 1 (Phase 0 if the request is Large) — do not start coding.
-2. **Stop for human review between phases.** Present each artifact (spec, plan, tasks) and get explicit approval before moving on — never chain spec → plan → tasks → code in one uninterrupted run. Set its Status as the phase table says: `in-review` when you present it, `approved` once the user signs off; on a change request, revise and re-present — it stays `in-review` until sign-off. No artifact carries `approved` without having existed as `in-review` first: the stop leaves a trace, or it did not happen. The spec's review stop is Phase 2's exit, so Phases 1–2 are one unit: never ask for approval while `[NEEDS CLARIFICATION]` markers remain.
+2. **One proposal review before code.** Draft the spec, plan and tasks, then present all three together as one proposal and get explicit approval before any code. Phase 2's questions are a Q&A turn, not a stop. Status is `in-review` when presented, `approved` on sign-off; on a change request, revise and re-present — touched artifacts stay `in-review` until sign-off. No artifact carries `approved` without having been `in-review`: the stop leaves a trace, or it did not happen. Never ask for approval while `[NEEDS CLARIFICATION]` markers remain. A spec-only review before planning is opt-in, never the default. Phases 0 and 7 keep their own stops.
 
-   The user may waive the review stops ("run the remaining phases without asking me"): record the waiver as a Decisions entry in `spec.md` and mark the affected artifacts `approved` on that standing instruction — every artifact is still written and presented, just not blocked on. **A waiver covers exactly two things: the phase review stops, and Phase 7's approval to implement gaps, for work inside the approved scope.** It never covers a row of the table below — those approve what the feature promises, destroys, or ships, not the pace of the workflow.
+   The user may waive the review stops ("run the remaining phases without asking me"): record the waiver as a Decisions entry in `spec.md` and mark the affected artifacts `approved` on that standing instruction — every artifact is still written and presented, just not blocked on. **A waiver covers exactly two things: the review stops before code, and Phase 7's approval to implement gaps, for work inside the approved scope.** It never covers a row of the table below — those approve what the feature promises, destroys, or ships, not the pace of the workflow.
 
-   **If no one is answering.** In a non-interactive session (a subagent, a `-p` run, a CI job, a scheduled agent), or when a question simply goes unanswered, never guess past a stop and never delete: write the phase's artifact, leave its Status `draft`, say in one line what would have been asked and what it blocks, and stop with the artifact on disk. That artifact is the handoff — Resuming work picks it up. At Phase 7 the artifacts are already `approved`, so the report block is where the stop lands instead: leave the pass `Converged: no — awaiting <the decision>` and never write the verdict, annotation, or sign-off the stop was for. Silence is not a waiver: it grants no approval, and no work a stop gates starts on it.
+   **If no one is answering.** In a non-interactive session (a subagent, a `-p` run, a CI job, a scheduled agent), or when a question simply goes unanswered, never guess past a stop and never delete: write the artifacts reached so far, leave their Status `draft`, say in one line what would have been asked and what it blocks, and stop with the artifact on disk. That artifact is the handoff — Resuming work picks it up. At Phase 7 the artifacts are already `approved`, so the report block is where the stop lands instead: leave the pass `Converged: no — awaiting <the decision>` and never write the verdict, annotation, or sign-off the stop was for. Silence is not a waiver: it grants no approval, and no work a stop gates starts on it.
 
    **Always needs explicit sign-off — a waiver never covers these.** This table is the one list: the spec's **Sign-off** line carries one line per row this feature actually raises — including a row raised mid-flight — and nothing else.
 
@@ -81,7 +81,7 @@ Scale the ceremony to the work. Classify before starting:
 
 **A Trivial change is still gated.** Run the project's existing quality gates once before changing anything and treat only new failures against that run as blocking, then self-review the diff against the junk-code checklist (core rule 6). A gate that cannot execute at all — missing service, dependency, or config; a run that collects nothing — is not a passed gate: say so explicitly, and if the change's correctness depends on it, treat the work as Small.
 
-At Small, wherever the workflow or a reference says `plan.md` or `tasks.md`, use the matching part of the collapsed `spec.md` — gates, **Base**, **Integration**, and tasks next to `## Tasks`, verification gaps and reports appended there too. Phases 1–2 still close first: resolve every `[NEEDS CLARIFICATION]` and get the spec half approved before drafting the gates-and-tasks half of the same file.
+At Small, wherever the workflow or a reference says `plan.md` or `tasks.md`, use the matching part of the collapsed `spec.md` — gates, **Base**, **Integration**, and tasks next to `## Tasks`, verification gaps and reports appended there too. Phases 1–2 still close first: resolve every `[NEEDS CLARIFICATION]` before drafting the gates-and-tasks half, then present the whole file as the proposal.
 
 - State the chosen depth in one line before starting — for Trivial, that line ("treating this as Trivial — no spec") is the user's chance to object. When unsure, ask which depth the user wants instead — one sentence, not a questionnaire.
 - Where the session does not start at Phase 1, state the entry mode in that same one line instead — `Phase-7-only`, `Resuming work` (naming the feature), or `Audit mode` — so the user can redirect before any artifact is read.
@@ -93,15 +93,15 @@ At Small, wherever the workflow or a reference says `plan.md` or `tasks.md`, use
 | Phase | Output artifact | Status after | Stop? |
 |---|---|---|---|
 | **0 — Scope check** *(Large only)* | `specs/<parent-slug>/scope.md` | rows `pending` | **yes** — the split and its order |
-| **1 — Specify** | `specs/<slug>/spec.md` | `draft` → `in-review` | no — Phases 1–2 are one unit |
-| **2 — Clarify** | the same `spec.md`, no markers left | `approved` on sign-off (`pending sign-off: <role>` where a named signer is absent) | **yes** |
-| **3 — Plan** | `specs/<slug>/plan.md` | `draft` → `in-review` → `approved` | **yes** |
-| **4 — Tasks** | `specs/<slug>/tasks.md` | `draft` → `in-review` → `approved` | **yes** |
+| **1 — Specify** | `specs/<slug>/spec.md` | `draft` | no |
+| **2 — Clarify** | the same `spec.md`, no markers left | `draft` | no — questions only |
+| **3 — Plan** | `specs/<slug>/plan.md` | `draft` | no |
+| **4 — Tasks** | `specs/<slug>/tasks.md`, then the proposal | all three `in-review` → `approved` on sign-off (`pending sign-off: <role>` where a named signer is absent) | **yes** — spec + plan + tasks as one proposal |
 | **5 — Implement** | code; checked boxes and completion notes in `tasks.md` | artifacts stay `approved` | no |
 | **6 — Document** | `docs/<slug>.md`, README/CHANGELOG/doc comments | artifacts stay `approved` | no |
 | **7 — Verify** | verdict table, `G#` gap tasks and a dated report block in `tasks.md` | `implemented` on `spec.md` and `plan.md` once merged and converged; `tasks.md` stays `approved` | **yes** — the gap tasks |
 
-`draft` is the state of an artifact that has been produced but not yet presented — what an interrupted session leaves on disk. Resuming work triages it like any other in-flight state. `superseded` and `abandoned` are set by the rules in Change requests mid-flight.
+`draft` means produced but not yet presented — what an interrupted session leaves on disk for Resuming work. `superseded` and `abandoned` are set by the rules in Change requests mid-flight.
 
 ### Phase 0 — Scope check *(only for Large — stop for approval)*
 
@@ -124,21 +124,21 @@ Produce `specs/<slug>/spec.md` from `assets/spec-template.md`. Read [references/
 - Define measurable **success criteria** with stable `SC#` ids — real-world checks beyond tests passing, in the template's `**Signal**` / `**Read at**` / `**Emitted by**` shape; where this feature must produce that signal, emitting it becomes a plan component and a task, never an assumption. The collapsed Small spec omits them; at Standard and above an empty section is a `[NEEDS CLARIFICATION]`, never a valid state.
 - Mark anything you had to assume with `[NEEDS CLARIFICATION: question]` inline.
 
-### Phase 2 — Clarify *(stop for approval)*
+### Phase 2 — Clarify *(questions, not a stop)*
 
-Before planning, resolve every `[NEEDS CLARIFICATION]` marker:
+Before planning, resolve every `[NEEDS CLARIFICATION]` marker. With none, skip this phase.
 
 - Ask the open questions, batched, most-consequential first, each offering a default ("X or Y? I'd default to X because…") — that gets faster, better answers than an open question.
 - Fold the answers back into `spec.md` and delete the markers.
 - Record **every** answer in the spec's Decisions section — including, where the user said "you decide", the decision *and its rationale*.
 
-Exit criteria: zero markers left, and the spec approved by everyone its **Sign-off** line names (core rule 2).
+Exit criteria: zero markers left. The proposal (Phase 4) needs everyone the **Sign-off** line names (core rule 2).
 
-### Phase 3 — Plan *(stop for approval)*
+### Phase 3 — Plan
 
 Produce `specs/<slug>/plan.md` from `assets/plan-template.md`. Read the actual codebase first — the plan must reference real files, real modules, and the project's existing conventions, not a greenfield fantasy.
 
-- **Other features in flight** — find the specs whose plan claims files or symbols this plan touches; record the result on the plan's **In flight** line. On Phase 1's solo path, check this tree's `specs/` only; otherwise run the overlap scan ([references/team-and-review.md](references/team-and-review.md) → Overlap scan, read it now). Surface any overlap to the user before asking for approval.
+- **Other features in flight** — find the specs whose plan claims files or symbols this plan touches; record the result on the plan's **In flight** line. On Phase 1's solo path, check this tree's `specs/` only; otherwise run the overlap scan ([references/team-and-review.md](references/team-and-review.md) → Overlap scan, read it now). Surface any overlap in the proposal.
 - **Quality gates and evidence** — discover the project's quality tooling (linter, formatter, type checker, test runner, plus any other check it already runs in CI or its scripts — accessibility, security or dependency scan, size or performance budget, contract/schema check), then read [references/verification.md](references/verification.md) → Recording gates now and follow it — it governs the Quality gates table, the **Measurements** commands, and the **Evidence per requirement** walk. Phase 3 runs nothing: baselines wait for Phase 5. Every recorded gate is a mandatory check for every task.
 - Record how this change set reaches its base branch as the plan's **Integration** line, next to **Base**: read [references/team-and-review.md](references/team-and-review.md) → Integration now and follow its checklist.
 - Map the architecture before proposing components: how the repo organizes code (layers, feature folders, modules, hexagonal — whatever the tree actually shows) and where each kind of thing lives; record it in the plan's Current state. Where no coherent pattern exists, say so there and follow the dominant local convention of the area being touched — never introduce a new architecture as a side effect of a feature; proposing one is its own spec.
@@ -151,9 +151,9 @@ Produce `specs/<slug>/plan.md` from `assets/plan-template.md`. Read the actual c
 
   If any answer is not its default, read the matching reference now, before writing that line, and follow its checklist: [references/data-and-delivery.md](references/data-and-delivery.md) for the first two, [references/dependencies.md](references/dependencies.md) for the third. A dependency change is never a task's side effect, and a version change no `R#`/`E#` here needs is its own spec discussion, like a new architecture.
 - Every requirement and edge case (`R#`, `E#`) in the spec must map to at least one component in the plan. If something in the plan implements nothing from the spec, cut it.
-- Stop and get approval.
+- Draft only; it is presented with the proposal (Phase 4).
 
-### Phase 4 — Tasks *(stop for approval)*
+### Phase 4 — Tasks *(then stop: the proposal)*
 
 Produce `specs/<slug>/tasks.md` from `assets/tasks-template.md`.
 
@@ -161,7 +161,7 @@ Produce `specs/<slug>/tasks.md` from `assets/tasks-template.md`.
 - Order by dependency; mark tasks that can run in parallel with `[P]`, whose contiguity semantics the tasks template states — the plan's Build order names no parallel groups of its own.
 - Every plan component must be covered by at least one task.
 - Include the documentation task (Phase 6's work).
-- Stop and get approval. Present the magnitude with the list, in one line: the task count, every task that names more than 3 files or more than one component flagged as large, and the size the chosen depth states — so the approver can object to the commitment before approving it instead of after.
+- Set `spec.md`, `plan.md` and `tasks.md` to `in-review` and present them as the proposal, with the magnitude in one line: the task count, every task that names more than 3 files or more than one component flagged as large, and the depth's stated size. One sign-off sets all three `approved`.
 
 ### Phase 5 — Implement
 
@@ -226,7 +226,7 @@ The checks below run in order, with one dependency: where the drift check orders
 - **Drift check** — to tell whether code changed *outside* this feature since the artifacts were written, compare each artifact's `Last updated` date against `git log` for the paths the feature touches, discounting the feature's own work — commits on its branch, commits carrying the slug prefix, and the working tree its last completed task left behind are never drift; if anything else is newer, run Phase 7 as a diagnostic pass. Dates also mislead after a rebase or a merge from the base branch: run the rebase test on the plan's **Base** line, in the form that line's topology takes ([references/verification.md](references/verification.md) → Recording gates) — where it fires, treat the code as changed regardless of dates and run that pass, whose step 4 refreshes the stale baseline.
 - **Artifact cross-check** — every spec `R#`/`E#` carries at least one task (for Small, in the collapsed `spec.md`'s `## Tasks` section) and, at Standard and Large, a row in the plan's Requirement coverage table; in reverse, no coverage row and no task's `Implements` may name an `R#`/`E#` the spec no longer has. Then check each artifact against its own history, discounting the workflow's own edits — checkboxes, completion notes, amendments, Status changes, appended reports, and `Last updated` bumps are legitimate in an `approved`/`implemented` artifact, committed on the feature's branch, under its `<slug>: ` prefix, or still uncommitted from its last completed task. What counts is an edit outside that set: a commit touching the artifact newer than its `Last updated` line (`git log -1 --format=%as -- <artifact>` — author date, which a rebase preserves where committer dates do not) and neither on the feature's branch nor `<slug>: `-prefixed, or an uncommitted change (`git diff -- <artifact>`) rewriting an `R#`/`E#`, its criteria, or the plan's components. Any such mismatch means the artifact was hand-edited — treat it as an unprocessed change request and run Change requests mid-flight first. An artifact the depth never produces (no `plan.md` at Small) is never a mismatch; one the depth should have produced but that is absent is the next bullet's case.
 - **Missing or unrecoverable artifacts** — rule out the branch case first: if a branch named `<slug>` or another active branch (run the overlap scan) holds `specs/<slug>/`, nothing was lost — switch to that branch to resume it, or ask the user, and never restore copies into the current branch. Otherwise, if an artifact the lifecycle already produced (its upstream artifact is `approved` or `implemented`, or a downstream artifact references it) is missing or unreadable, restore it from git history; if it is unrecoverable, regenerate it from the surviving artifacts (`tasks.md` from the plan's components), leave every regenerated task unchecked, record the reconstruction as a Decisions entry in `spec.md`, get it re-approved, then run Phase 7 immediately as a diagnostic pass — its **met** verdicts, not memory of earlier sessions, decide which regenerated tasks are already done.
-- **Stopped at an earlier phase** — a feature whose artifacts simply stop at an earlier phase resumes at that phase's exit: a `draft` artifact is presented for approval as its phase says, an `in-review` one re-presented — neither is lost, neither is re-specified from scratch. An approved plan with unfilled Baseline cells resumes at Phase 5's first bullet.
+- **Stopped at an earlier phase** — a feature whose artifacts simply stop at an earlier phase resumes at that phase's exit: a spec with no plan resumes at Phase 2 (Phase 3 once no markers remain); a later `draft` or `in-review` artifact is completed and presented as the proposal. None is re-specified from scratch. An approved plan with unfilled Baseline cells resumes at Phase 5's first bullet.
 - **Every task closed, Status still `approved`** — read the `Verification reports` section of `tasks.md` (for Small, the end of the collapsed `spec.md`'s `## Tasks` section). No report block, one whose `Converged:` line reads `no`, or a last pass still listing open gaps or verdicts other than **met**/**superseded**/**deferred**/**blocked**/an accepted limitation, means Phase 7 never converged — run it (an in-progress block names the step it stopped at; restart there), and never set **implemented** without a converged report block on record.
 - **Large split** — read `specs/<parent-slug>/scope.md` first and pick the next capability whose dependencies are `done`; where several qualify, take the one the approved **rank** names first and report that choice rather than picking silently — a different order is a re-rank of those rows, with the user's approval. A `deferred` row is not a candidate until its date, and is reported alongside the in-flight rows so a cut capability stays visible. If none qualifies, report the blocking rows instead of stopping — an `abandoned` dependency is a scope decision (re-point, absorb, or abandon the dependent), never a permanent block.
 - **Abandoned** — skip `abandoned` features unless the user explicitly reopens them; reopening sets `spec.md`, `plan.md`, and `tasks.md` back to `in-review` and the normal lifecycle re-applies. After re-approval, run Phase 7 immediately as a diagnostic pass — its **met** verdicts, not checkboxes left behind before the cancellation, decide which tasks are still done and where Phase 5 restarts.
