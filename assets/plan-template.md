@@ -15,6 +15,7 @@
 [What exists today that this builds on or changes: modules, conventions, constraints found by reading the codebase. Real paths.]
 
 - **Architecture**: [how this repo organizes code — layers / feature folders / modules — and where each kind of thing lives; or "no coherent pattern — following the local convention of `path/`". Components respect this.]
+- **In flight**: [the overlap scan's result — branch set scanned, or `— single branch, no team signals`.]
 - `path/to/module` — [role, what changes]
 
 ## Quality gates

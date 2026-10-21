@@ -10,6 +10,13 @@ All notable changes to the `spec-driven` skill.
 - Phase 5's first step measures the Baseline cells, the **Base** SHA, and the **Measurements** values on the untouched tree, before the first code change. Writing them into the plan is a workflow edit and needs no re-approval.
 - A gate that cannot execute now blocks task one instead of the plan's approval. The Trivial rule (run the gates once before changing) is unchanged.
 
+**Discovery and the overlap scan run only when the repo signals a team**
+
+- New `team-and-review.md` → Team signals, run once at Phase 1 at every depth: one `find` for `CODEOWNERS`/`OWNERS`, `CONTRIBUTING`, and PR/issue templates, plus the overlap scan's `git for-each-ref` for unmerged branches from the last ~90 days.
+- No signal: Discovery and the branch steps are skipped. Owner, Sign-off, and Tracking take their `—` defaults, the overlap result is `— single branch, no team signals`, and the slug test only checks that `specs/<slug>/` and `docs/<slug>.md` do not exist yet.
+- A signal runs only the part it calls for (team file → Discovery, recent branch → full overlap scan). The user saying others work on this triggers both. Core rule 2 sign-off is unchanged.
+- The Small row's partial version is replaced by this rule. The plan template gains an **In flight** line for the overlap result.
+
 ## 3.1.0
 
 Wave B audit: the red-team pass plus the three scenarios never run before (spec drift, data migration, mid-flight change request). v3.0.0 hardened the evidence half of Phase 7 and left the gate half on assertion; this release evidences the gate half, gives a real data migration a door into Phase 7, and stops the exemplar modelling the exit its own rule forbids.
