@@ -85,7 +85,7 @@ This walk stays strict at every depth. It covers authentication or authorization
 - [ ] **Traceability** — what record the action leaves (who did what, when) and where that record is visible.
 - [ ] **Data handling** — what is stored, what appears in outputs, errors, and logs, what is deliberately not logged, and how long it is kept.
 - [ ] **Data lifecycle** — when the feature creates a new store of personal or regulated data: how that data is deleted and exported when its subject is, naming the project's existing erasure, export, or retention path as discovered by reading the repo. An explicit "the project has none" is a valid answer and belongs in Non-goals.
-- [ ] **Correctness under repetition** — for anything moving money, credits, or entitlements: what happens when the same request arrives twice.
+- [ ] **Repeat-request correctness** — for anything moving money, credits, or entitlements: what happens when the same request arrives twice.
 
 Whatever you cannot answer becomes a `[NEEDS CLARIFICATION]` and goes in Phase 2's first batch — these questions change the shape of the plan, so they are asked first.
 
@@ -109,7 +109,7 @@ The Requirements section ends with a **Minimum shippable** line — the smallest
 
 - [ ] Test each requirement: *if this `R#` were absent, would the Objective still be delivered?* Yes → outside the minimum set. No → inside it.
 - [ ] Dependency order is not value order: the plan's Build order says what must come first, never what is worth most. Never derive one from the other.
-- [ ] The line is spec content: settled at Phase 2 with everything else, and changed only through the amendment path, like any `R#`.
+- [ ] The line is spec content: approved with the proposal like everything else, and changed only through the amendment path, like any `R#`.
 - [ ] It is also the scope-creep test — a requirement added during clarification that lands outside the minimum set is stated as such, not carried as if it were load-bearing.
 
 Cutting scope under a deadline reads that line first and defers from **outside** it:

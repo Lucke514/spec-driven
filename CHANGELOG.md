@@ -6,7 +6,7 @@ All notable changes to the `spec-driven` skill.
 
 Speed release. Reaching an approved plan cost far more than other spec tools, and a review found the cause was context and ceremony, not checks. This release cuts what an agent loads and does before the first proposal, keeps every sign-off item, and makes cost a hard gate in the test harness so later fixes cannot quietly grow it back.
 
-**Budget.** `wc -w SKILL.md references/*.md assets/*.md` goes from 24,939 to 24,459 words, and SKILL.md from 7,072 to 2,848. Words loaded on the default path (`tests/budget.py`, the same mapping applied to 3.1.0): Trivial 8,054 → 3,830, Small to the spec 10,668 → 6,847, Standard to the proposal 14,108 → 9,752. Review stops before code: three → one.
+**Budget.** `wc -w SKILL.md references/*.md assets/*.md` goes from 24,939 to 24,460 words, and SKILL.md from 7,072 to 2,848. Words loaded on the default path (`tests/budget.py`, the same mapping applied to 3.1.0): Trivial 8,054 → 3,830, Small to the spec 10,668 → 6,846, Standard to the proposal 14,108 → 9,753. Review stops before code: three → one.
 
 **Gate baselines move from Plan to the start of Implement**
 
