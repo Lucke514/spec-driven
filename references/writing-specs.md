@@ -46,7 +46,7 @@ Rewrite vague qualities as observable behavior:
 
 ## Surfaces & their criteria
 
-Name every surface the feature exposes, then cover its row with `R#`/`E#` or say in Non-goals that it is out of scope. Classify the surface, never the framework — "an HTTP contract plus a background job" is the statement; which library serves it is Phase 3's business. A feature with several surfaces carries criteria from each row.
+Name every surface the feature exposes, at every depth, then cover its row with `R#`/`E#` or say in Non-goals that it is out of scope. Classify the surface, never the framework: which library serves it is Phase 3's business. A feature with several surfaces carries criteria from each row.
 
 | Surface | The spec covers — or names as a non-goal |
 |---|---|
@@ -60,10 +60,10 @@ Name every surface the feature exposes, then cover its row with `R#`/`E#` or say
 
 ## Operational criteria
 
-A feature that faces users or runs in production carries these too — an internal library or a pure refactor states in one line that it does not. Cover each item with `R#`/`E#` or say in Non-goals that it is out of scope; discover what this project already commits to by reading the repo (checker config, CI jobs, scripts, stated policy) and never assume a standard it has not adopted. Whatever you cannot answer becomes a `[NEEDS CLARIFICATION]`.
+Only a feature that faces users or runs in production carries these. Any other feature writes one line: `Operational criteria: n/a — <reason>`. Small specs may skip the line. List only the items that apply to this feature, each with its `R#`/`E#`/`SC#`. An item that does not apply is omitted, not written as a non-goal; one that applies but is out of scope goes in Non-goals. Discover what this project already commits to by reading the repo (checker config, CI jobs, scripts, stated policy) and never assume a standard it has not adopted. Whatever you cannot answer becomes a `[NEEDS CLARIFICATION]`.
 
 - [ ] **Load & volume** — the traffic, data size, and concurrency the feature must hold, and what it does past that point.
-- [ ] **Accessibility** — for user-facing surfaces: the standard and level this project already commits to (found in its checker config, CI job, or stated policy). Citing the standard is not covering it: a requirement that names one is not presentable until each item below carries its own criterion or an explicit Non-goal.
+- [ ] **Accessibility** — only when the feature has a UI surface: the standard and level this project already commits to (found in its checker config, CI job, or stated policy). Citing the standard is not covering it: a requirement that names one is not presentable until each item below carries its own criterion or an explicit Non-goal.
   - [ ] **Keyboard reach** — every action the surface offers is reachable and operable without a pointer.
   - [ ] **Focus behavior** — where focus goes on navigation, on opening and closing, and after an action completes.
   - [ ] **Contrast** — stated as the ratio the cited level requires, for text and for meaningful non-text.
@@ -73,13 +73,13 @@ A feature that faces users or runs in production carries these too — an intern
 - [ ] **Degradation** — what the feature does when a dependency it calls is slow, unavailable, or returns an unexpected shape.
 - [ ] **Configuration** — for each config value or secret the feature needs: whether it is required or has a safe default, and what the feature does when it is absent. Phase 3's delivery checklist reads this `R#`/`E#`; it never invents one.
 - [ ] **Rollout signal** — where the feature will reach users in ordered stages, the `SC#` whose signal each stage is judged on. Phase 3 names stages against that `SC#` and never invents a new signal there.
-- [ ] **Partial failure** — where the feature's operation writes in more than one place (two stores, a store plus an external call, a store plus a queue or file): what is left behind when it fails between them, and what makes it consistent again (one transaction, retry, compensating action, reconciliation job). An `R#`/`E#` or an explicit Non-goal — never unstated.
+- [ ] **Partial failure** — where the feature's operation writes in more than one place (two stores, a store plus an external call, a store plus a queue or file): what is left behind when it fails between them, and what makes it consistent again (one transaction, retry, compensating action, reconciliation job).
 
-An item stating a number follows the measured-criteria rule above: an `R#` only when a command here can measure it under the conditions the number actually means — otherwise an `SC#` naming its measurement method and environment.
+An item stating a number follows the **Measured criteria** rule above.
 
 ## Sensitive ground
 
-When the feature touches authentication or authorization, personal or regulated data, secrets and credentials, or money, the spec carries explicit `R#`/`E#` for each item below — or Non-goals states in writing that it does not. Record the walk item by item on the spec's coverage line (`Access control: R3 | Traceability: R4 | Data handling: E2 | Data lifecycle: non-goal | Repeat-request correctness: R7`), the same shape as the accessibility sub-items, so a skipped item is a blank cell and not an absence nothing can see. Phase 7 reports that line back on its `Coverage:` row:
+This walk stays strict at every depth. It covers authentication or authorization, personal or regulated data, secrets and credentials, and money. A feature that touches none of them states one line: `Sensitive ground: none touched`. When it touches any of them, each of the five items below gets an `R#`/`E#` or an explicit Non-goal. Record the walk item by item on the spec's coverage line (`Access control: R3 | Traceability: R4 | Data handling: E2 | Data lifecycle: non-goal | Repeat-request correctness: R7`), so a skipped item shows as a blank cell. Phase 7 reports that line back on its `Coverage:` row:
 
 - [ ] **Access control** — who may do this, and what happens when someone who may not tries.
 - [ ] **Traceability** — what record the action leaves (who did what, when) and where that record is visible.
