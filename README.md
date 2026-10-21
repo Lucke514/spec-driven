@@ -57,6 +57,7 @@ assets/                      # templates: spec, plan, tasks, feature docs
 references/                  # loaded on demand: specs, sign-off, implement, verification, lifecycle, …
 scripts/validate.py          # deterministic checks for spec.md / plan.md / tasks.md
 tests/validator/             # validator fixtures; run.sh checks them
+tests/budget.py              # words loaded per depth path; fails over budget
 ```
 
 ## Changelog

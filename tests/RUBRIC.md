@@ -1,7 +1,28 @@
 # Scoring rubric
 
-Each dimension scores 0–5. A run's total is out of 60.
 Score what the agent **did**, from its transcript and the files on disk — never what it claimed.
+Check the cost budget first. Then score the 12 dimensions, 0–5 each, out of 60.
+
+## Cost budget (pass/fail, checked first)
+
+A run over any limit for its depth **fails, whatever its score**. Record the three numbers and
+the verdict at the top of the scorecard. `python3 tests/budget.py` must pass before any run.
+
+| Depth | Instruction words loaded before the first presented artifact | Tool calls to the first presented artifact | Review round-trips before code |
+|---|---|---|---|
+| Trivial | 4,200 (whole run; no artifact) | 15 (to the first edit) | 0 |
+| Small | 7,500 | 25 | 1 |
+| Standard | 10,700 | 40 | 1 |
+| Large | Standard's, per capability | Standard's, per capability | Phase 0 + 1 per capability |
+
+- **Words loaded** — sum the files and sections the agent actually read, counted like `wc -w`.
+  Re-reading a file counts again. `tests/budget.py` prints the floor for the default path.
+- **Tool calls** — every tool call from the request to the first artifact presented to the user.
+- **Round-trips** — turns where the agent stops for approval before code. Phase 2's one batch
+  of questions is not a review; a stop a sign-off item forces (`references/sign-off.md`) is not
+  counted either.
+
+## Dimensions
 
 | # | Dimension | 0 | 5 |
 |---|---|---|---|
@@ -16,7 +37,7 @@ Score what the agent **did**, from its transcript and the files on disk — neve
 | D9 | **Documentation** | None, or invented behavior | `docs/<slug>.md` accurate against the code; entry points updated |
 | D10 | **Verification** | No Phase 7, or verdicts asserted without evidence | Every `R#`/`E#` gets a verdict citing real code + a passing test; report block appended |
 | D11 | **Scope fidelity** | Built beyond the spec, or silently less | Diff covered by the spec; shortcuts and cuts declared as Decisions entries |
-| D12 | **Cost** | Thrashed: re-read the skill repeatedly, long stalls, huge preamble | Read what it needed once; time-to-first-artifact short |
+| D12 | **Ceremony to value** | Artifact lines and process commits dwarf the shipped diff (a 120-line spec and 9 commits for 3 lines) | Artifact lines and process-only commits per line of shipped diff in proportion to the depth; nothing written that no later phase reads |
 
 ## Friction log (the real output)
 
